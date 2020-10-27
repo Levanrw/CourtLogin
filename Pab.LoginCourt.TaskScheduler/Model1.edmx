@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Analytics_NewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CourtSetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RandomStart" Type="int" />
+          <Property Name="RandomEnd" Type="int" />
+          <Property Name="ProgramExitTime" Type="time" Precision="7" />
+          <Property Name="SysDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CourtSiteInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourtUserId" Type="int" />
+          <Property Name="TabName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CourtDate" Type="datetime" />
+          <Property Name="FileName" Type="nvarchar(max)" />
+          <Property Name="Header" Type="nvarchar(max)" />
+          <Property Name="SysDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CourtUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActiveId" Type="int" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="70" />
+          <Property Name="Password" Type="nvarchar" MaxLength="70" />
+          <Property Name="ReadyForLogin" Type="bit" />
+          <Property Name="Logined" Type="bit" />
+          <Property Name="Authorized" Type="bit" />
+          <Property Name="LastLoginDate" Type="datetime" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="SysDate" Type="datetime" />
+        </EntityType>
+        <EntityContainer Name="Analytics_NewModelStoreContainer">
+          <EntitySet Name="CourtSetting" EntityType="Self.CourtSetting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourtSiteInfo" EntityType="Self.CourtSiteInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourtUsers" EntityType="Self.CourtUsers" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Analytics_NewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CourtSetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RandomStart" Type="Int32" />
+          <Property Name="RandomEnd" Type="Int32" />
+          <Property Name="ProgramExitTime" Type="Time" Precision="7" />
+          <Property Name="SysDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CourtSiteInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourtUserId" Type="Int32" />
+          <Property Name="TabName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CourtDate" Type="DateTime" Precision="3" />
+          <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Header" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SysDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="CourtUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActiveId" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="ReadyForLogin" Type="Boolean" />
+          <Property Name="Logined" Type="Boolean" />
+          <Property Name="Authorized" Type="Boolean" />
+          <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="SysDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="Analytics_NewEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CourtSettings" EntityType="Self.CourtSetting" />
+          <EntitySet Name="CourtSiteInfoes" EntityType="Self.CourtSiteInfo" />
+          <EntitySet Name="CourtUsers" EntityType="Self.CourtUser" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Analytics_NewModelStoreContainer" CdmEntityContainer="Analytics_NewEntities">
+          <EntitySetMapping Name="CourtSettings">
+            <EntityTypeMapping TypeName="Analytics_NewModel.CourtSetting">
+              <MappingFragment StoreEntitySet="CourtSetting">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RandomStart" ColumnName="RandomStart" />
+                <ScalarProperty Name="RandomEnd" ColumnName="RandomEnd" />
+                <ScalarProperty Name="ProgramExitTime" ColumnName="ProgramExitTime" />
+                <ScalarProperty Name="SysDate" ColumnName="SysDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourtSiteInfoes">
+            <EntityTypeMapping TypeName="Analytics_NewModel.CourtSiteInfo">
+              <MappingFragment StoreEntitySet="CourtSiteInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CourtUserId" ColumnName="CourtUserId" />
+                <ScalarProperty Name="TabName" ColumnName="TabName" />
+                <ScalarProperty Name="CourtDate" ColumnName="CourtDate" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Header" ColumnName="Header" />
+                <ScalarProperty Name="SysDate" ColumnName="SysDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourtUsers">
+            <EntityTypeMapping TypeName="Analytics_NewModel.CourtUser">
+              <MappingFragment StoreEntitySet="CourtUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ActiveId" ColumnName="ActiveId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ReadyForLogin" ColumnName="ReadyForLogin" />
+                <ScalarProperty Name="Logined" ColumnName="Logined" />
+                <ScalarProperty Name="Authorized" ColumnName="Authorized" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SysDate" ColumnName="SysDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
