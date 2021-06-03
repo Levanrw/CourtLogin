@@ -125,7 +125,7 @@ namespace PAB.LoginInCourt
                     using (var client = new HttpClient())
                     {
 
-                        client.BaseAddress = new Uri("http://ecd.court.ge");
+                        client.BaseAddress = new Uri("https://ecd.court.ge");
                         client.DefaultRequestHeaders.Accept.Clear();
                         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
