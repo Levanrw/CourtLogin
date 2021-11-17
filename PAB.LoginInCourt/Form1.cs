@@ -49,8 +49,13 @@ namespace PAB.LoginInCourt
                     cookieContainer.Add(baseAddress, new Cookie("ASP.NET_SessionId", "j1lz2qxrsaw4kpzqegnnehvs"));//j1lz2qxrsaw4kpzqegnnehvs
                     var result = await client.PostAsync($"http://ecd.court.ge{postLink}", content);
                     //  System.IO.Directory.CreateDirectory(Server.MapPath($"C:\\Users\\L.Shanava\\Downloads\\{userName}\\{panelName}));
-                    var file = result.Content.ReadAsByteArrayAsync().GetAwaiter().GetResult();//ReadAsStringAsync().GetAwaiter().GetResult();                
-                    string Filepath = $"C:\\Users\\L.Shanava\\Downloads\\CourtFiles\\{userName}\\{panelName}";
+                    var file = result.Content.ReadAsByteArrayAsync().GetAwaiter().GetResult();//ReadAsStringAsync().GetAwaiter().GetResult();   
+                    
+
+                    string Filepath = $"D:\\Projects\\CourtInfo\\Results\\Documents\\{userName}\\{panelName}";
+
+                    //string Filepath = $"C:\\Users\\L.Shanava\\Downloads\\CourtFiles\\{userName}\\{panelName}";
+
                     Directory.CreateDirectory(Filepath);
                     File.WriteAllBytes($"{Filepath}\\{_id.ToString()}.pdf", file);
                 }
@@ -125,7 +130,7 @@ namespace PAB.LoginInCourt
                     using (var client = new HttpClient())
                     {
 
-                        client.BaseAddress = new Uri("http://ecd.court.ge");
+                        client.BaseAddress = new Uri("https://ecd.court.ge");
                         client.DefaultRequestHeaders.Accept.Clear();
                         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -133,6 +138,8 @@ namespace PAB.LoginInCourt
                         {
                          new KeyValuePair<string, string>("UserName", user.UserName),
                          new KeyValuePair<string, string>("Password", user.Password),
+                         //new KeyValuePair<string, string>("UserName","243359505029937"),
+                         //new KeyValuePair<string, string>("Password", "890555"),
                      });
                         //send request
                         HttpResponseMessage responseMessage = await client.PostAsync("/User/Login", formContent);
@@ -178,11 +185,11 @@ namespace PAB.LoginInCourt
 
                             var _doc = responseJson.ToString();
                             //var docc = webBrowser1.Document;
-
+                            
 
                             HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
                             doc.LoadHtml(_doc);
-                            if (doc.DocumentNode.SelectSingleNode("//table[@class='tableCommonStyle caseDocs']") == null || doc.DocumentNode.SelectSingleNode("//table[@class='tableCommonStyle caseFiles']") == null || doc.DocumentNode.SelectSingleNode("//table[@class='tableCommonStyle caseCourtSession']") == null)
+                            if (doc.DocumentNode.SelectSingleNode("//table[@class='tableCommonStyle caseDocs']") == null && doc.DocumentNode.SelectSingleNode("//table[@class='tableCommonStyle caseFiles']") == null && doc.DocumentNode.SelectSingleNode("//table[@class='tableCommonStyle caseCourtSession']") == null)
                             {
                                 using (var db = new Analytics_NewEntities())
                                 {
